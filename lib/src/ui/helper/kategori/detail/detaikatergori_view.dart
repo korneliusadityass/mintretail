@@ -4,6 +4,7 @@ import 'package:coba1/src/core/viewmodel/kategori/detail/detailkategori_vm.dart'
 import 'package:coba1/src/ui/add_produk/add_produk_view.dart';
 import 'package:coba1/src/ui/helper/kategori/detail/popup/delete_detail.dart';
 import 'package:coba1/src/ui/helper/kategori/detail/popup/edit_detail.dart';
+import 'package:coba1/src/ui/helper/kategori/detail/riwayatstok.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -71,124 +72,142 @@ class KategoriProductDetailsPage extends StatelessWidget {
                         final product = viewModel.products[index];
                         return Padding(
                           padding: const EdgeInsets.all(1),
-                          child: Card(
-                            color: AppColors.neutral01,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    flex: 1,
-                                    child: AspectRatio(
-                                      aspectRatio: 1,
-                                      child: Image.asset(
-                                        'asset/image/produk1.png',
-                                        fit: BoxFit.cover,
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => StockHistoryScreen(
+                                    productId: product.id,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Card(
+                              color: AppColors.neutral01,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      flex: 1,
+                                      child: AspectRatio(
+                                        aspectRatio: 1,
+                                        child: Image.asset(
+                                          'asset/image/produk1.png',
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  const SizedBox(width: 16),
-                                  Expanded(
-                                    flex: 2,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.stretch,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              product.name,
-                                              style: const TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold,
+                                    const SizedBox(width: 16),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.stretch,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                product.name,
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              children: [
-                                                IconButton(
-                                                  icon: Image.asset(
-                                                      'asset/image/edit_ktgry.png'),
-                                                  onPressed: () {
-                                                    Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  IconButton(
+                                                    icon: Image.asset(
+                                                        'asset/image/edit_ktgry.png'),
+                                                    onPressed: () {
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              EditProductScreen(
+                                                            product: product,
+                                                            onEdit:
+                                                                (updatedProduct) {
+                                                              viewModel
+                                                                  .updateProduct(
+                                                                      product
+                                                                          .id,
+                                                                      updatedProduct);
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                            },
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),
+                                                  IconButton(
+                                                    icon: Image.asset(
+                                                        'asset/image/trash.png'),
+                                                    onPressed: () {
+                                                      showDialog(
+                                                        context: context,
                                                         builder: (context) =>
-                                                            EditProductScreen(
-                                                          product: product,
-                                                          onEdit:
-                                                              (updatedProduct) {
-                                                            viewModel.updateProduct(
-                                                                product.id,
-                                                                updatedProduct);
+                                                            DeleteProductDialog(
+                                                          productName:
+                                                              product.name,
+                                                          onDelete: () {
+                                                            viewModel
+                                                                .deleteProduct(
+                                                                    product.id);
                                                             Navigator.of(
                                                                     context)
                                                                 .pop();
                                                           },
                                                         ),
-                                                      ),
-                                                    );
-                                                  },
+                                                      );
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          const SizedBox(height: 8),
+                                          Text(
+                                            'Rp. ${product.price.toStringAsFixed(2)}', // Formatting price
+                                            style:
+                                                const TextStyle(fontSize: 12),
+                                          ),
+                                          const SizedBox(height: 8),
+                                          Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 8,
+                                                      vertical: 4),
+                                              decoration: BoxDecoration(
+                                                color: AppColors.primary500,
+                                                borderRadius:
+                                                    BorderRadius.circular(4),
+                                              ),
+                                              child: Text(
+                                                'Stok: ${product.stock}',
+                                                style: const TextStyle(
+                                                  fontSize: 9,
+                                                  color: AppColors.neutral01,
                                                 ),
-                                                IconButton(
-                                                  icon: Image.asset(
-                                                      'asset/image/trash.png'),
-                                                  onPressed: () {
-                                                    showDialog(
-                                                      context: context,
-                                                      builder: (context) =>
-                                                          DeleteProductDialog(
-                                                        productName:
-                                                            product.name,
-                                                        onDelete: () {
-                                                          viewModel
-                                                              .deleteProduct(
-                                                                  product.id);
-                                                          Navigator.of(context)
-                                                              .pop();
-                                                        },
-                                                      ),
-                                                    );
-                                                  },
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(height: 8),
-                                        Text(
-                                          'Rp. ${product.price.toStringAsFixed(2)}', // Formatting price
-                                          style: const TextStyle(fontSize: 12),
-                                        ),
-                                        const SizedBox(height: 8),
-                                        Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Container(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 8, vertical: 4),
-                                            decoration: BoxDecoration(
-                                              color: AppColors.primary500,
-                                              borderRadius:
-                                                  BorderRadius.circular(4),
-                                            ),
-                                            child: Text(
-                                              'Stok: ${product.stock}',
-                                              style: const TextStyle(
-                                                fontSize: 9,
-                                                color: AppColors.neutral01,
                                               ),
                                             ),
                                           ),
-                                        ),
-                                        const SizedBox(height: 8),
-                                      ],
+                                          const SizedBox(height: 8),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),
