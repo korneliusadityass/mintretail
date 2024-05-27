@@ -387,6 +387,161 @@ class AddProductScreen extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 16.0),
+                      if (viewModel.pilihPajakText ==
+                          'Produk Memakai Pajak') ...[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                const Text(
+                                  'Nama Tipe Pajak',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.neutral08,
+                                  ),
+                                ),
+                                const SizedBox(height: 5),
+                                SizedBox(
+                                  width: 185,
+                                  height: 40,
+                                  child: DropdownButtonFormField<String>(
+                                    value: viewModel.pilihPajak.isEmpty
+                                        ? null
+                                        : viewModel.pilihPajak,
+                                    decoration: const InputDecoration(
+                                      border: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: AppColors.primary500,
+                                        ),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(8),
+                                        ),
+                                      ),
+                                      hintText: 'Select a option',
+                                    ),
+                                    items: const [
+                                      DropdownMenuItem(
+                                        value: 'Select a option',
+                                        child: Text('Select a option'),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: 'ppn',
+                                        child: Text('PPN'),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: 'pph',
+                                        child: Text('PPH'),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: 'pb1',
+                                        child: Text('PB1'),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: 'pdr',
+                                        child: Text('PDR'),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: 'pdh',
+                                        child: Text('PDH'),
+                                      ),
+                                    ],
+                                    onChanged: (String? newValue) {
+                                      if (newValue != null) {
+                                        viewModel.setPilihPajak(newValue);
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                const Text(
+                                  'Pilih Tipe Pajak',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.neutral08,
+                                  ),
+                                ),
+                                const SizedBox(height: 5),
+                                SizedBox(
+                                  width: 185,
+                                  height: 40,
+                                  child: DropdownButtonFormField<String>(
+                                    value: viewModel
+                                            .pilihPajakIncludeExclude.isEmpty
+                                        ? null
+                                        : viewModel.pilihPajakIncludeExclude,
+                                    decoration: const InputDecoration(
+                                      border: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: AppColors.primary500,
+                                        ),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(8),
+                                        ),
+                                      ),
+                                      hintText: 'Select a option',
+                                    ),
+                                    items: const [
+                                      DropdownMenuItem(
+                                        value: 'Select a option',
+                                        child: Text('Select a option'),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: 'Exclude',
+                                        child: Text('Exclude'),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: 'Include',
+                                        child: Text('Include'),
+                                      ),
+                                    ],
+                                    onChanged: (String? newValue) {
+                                      if (newValue != null) {
+                                        viewModel.setPilihPajakIncludeExclude(
+                                            newValue);
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 16.0),
+                        const Text(
+                          'Nilai persen pajak (%)',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.neutral08,
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        TextFormField(
+                          controller: viewModel.pajakPersenController,
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: AppColors.primary500),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8)),
+                            ),
+                            hintText: 'Contoh: 10%',
+                          ),
+                          keyboardType: const TextInputType.numberWithOptions(
+                            decimal: true,
+                          ),
+                          textInputAction: TextInputAction.next,
+                        ),
+                      ],
+                      const SizedBox(height: 16.0),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[

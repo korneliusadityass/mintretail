@@ -131,12 +131,25 @@ class ListViewWidget extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 8),
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: Text(
-                            'Stok: ${product.stock}',
-                            style: const TextStyle(fontSize: 9),
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              '(Ini keterangan pajak)',
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.danger04,
+                              ),
+                            ),
+                            Text(
+                              'Stok: ${product.stock}',
+                              style: const TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),

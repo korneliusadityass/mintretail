@@ -100,7 +100,7 @@ class _TambahCategoryDialogState extends State<TambahCategoryDialog> {
                   ),
                   child: const Text(
                     'Tambahkan',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: AppColors.neutral01),
                   ),
                 ),
               ],

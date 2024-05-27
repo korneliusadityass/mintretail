@@ -59,7 +59,6 @@ class HomeViewModel extends ChangeNotifier {
           categoryId: '2'),
       Product(
           name: 'Bakso Urat Spesial', price: 20000, stock: 20, categoryId: '3'),
-      // Add more products with appropriate categoryIds
     ];
 
     notifyListeners();
